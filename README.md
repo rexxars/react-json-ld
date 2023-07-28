@@ -55,6 +55,36 @@ function MyComponent() {
 }
 ```
 
+## Isn't JSON data safe by default?
+
+Kind of! But **not** when you put JSON inside of HTML, necessarily. In particular, putting HTML inside of JSON is totally legal, but can lead to big security issues. Consider the following:
+
+<!-- prettier-ignore -->
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "👋 Attacker here </script><script>alert('I see a problem')",
+}
+</script>
+```
+
+This will be interpreted as an invalid JSON-LD object, which the browser ignores, but it also opens up a new script tag and executes the JavaScript contained there. If you are using data from an untrusted source (such as user-contributed content), this can be a big problem.
+
+This library attempts to solve this problem, by escaping the JSON data in a way that makes it safe to put inside of HTML. The above example would be escaped to:
+
+<!-- prettier-ignore -->
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "👋 Attacker here \u003c/script\u003eu003cscriptu003ealert('I see a problem')",
+}
+</script>
+```
+
 ## Migrate from 1.x to 2.x
 
 `JsonLD` is now a named export, not the default export:
