@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.settings",
+  "include": ["./src", "./test", "./vitest.config.ts", "./package.config.ts"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "noEmit": true,
+    "paths": {
+      "react-jsonld": ["./src"]
+    }
+  }
+}

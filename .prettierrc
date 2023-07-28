@@ -1,0 +1,6 @@
+{
+  "bracketSpacing": false,
+  "plugins": ["prettier-plugin-packagejson"],
+  "semi": false,
+  "singleQuote": true
+}
