@@ -1,7 +1,7 @@
 {
   "name": "react-jsonld",
   "version": "1.0.0",
-  "description": "Render safe JSON-LD script tags in React",
+  "description": "Render safe JSON-LD script tags using React",
   "keywords": [
     "react",
     "json-ld",
