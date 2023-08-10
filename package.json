@@ -1,6 +1,6 @@
 {
   "name": "react-safe-json-ld",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Render safe JSON-LD script tags using React",
   "keywords": [
     "react",

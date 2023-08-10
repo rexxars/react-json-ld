@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/rexxars/react-safe-json-ld/compare/v1.0.0...v1.0.1) (2023-08-10)
+
+### Bug Fixes
+
+- mark package as side-effect free ([d9e2d48](https://github.com/rexxars/react-safe-json-ld/commit/d9e2d48e3bce7a3ddae5b146cdec368453d0a689))
+
 ## 1.0.0 (2023-08-10)
 
 ### Features
