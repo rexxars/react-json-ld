@@ -1,5 +1,5 @@
 {
-  "name": "react-json-ld",
+  "name": "react-safe-json-ld",
   "version": "1.0.0",
   "description": "Render safe JSON-LD script tags using React",
   "keywords": [
@@ -7,13 +7,13 @@
     "json-ld",
     "jsonld"
   ],
-  "homepage": "https://github.com/rexxars/react-json-ld#readme",
+  "homepage": "https://github.com/rexxars/react-safe-json-ld#readme",
   "bugs": {
-    "url": "https://github.com/rexxars/react-json-ld/issues"
+    "url": "https://github.com/rexxars/react-safe-json-ld/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/rexxars/react-json-ld.git"
+    "url": "git+ssh://git@github.com/rexxars/react-safe-json-ld.git"
   },
   "license": "MIT",
   "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",

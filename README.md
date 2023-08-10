@@ -1,6 +1,6 @@
-# react-json-ld
+# react-safe-json-ld
 
-[![npm version](https://img.shields.io/npm/v/react-json-ld.svg?style=flat-square)](https://www.npmjs.com/package/react-json-ld)[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-json-ld?style=flat-square)](https://bundlephobia.com/result?p=react-json-ld)[![npm weekly downloads](https://img.shields.io/npm/dw/react-json-ld.svg?style=flat-square)](https://www.npmjs.com/package/react-json-ld)
+[![npm version](https://img.shields.io/npm/v/react-safe-json-ld.svg?style=flat-square)](https://www.npmjs.com/package/react-safe-json-ld)[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-safe-json-ld?style=flat-square)](https://bundlephobia.com/result?p=react-safe-json-ld)[![npm weekly downloads](https://img.shields.io/npm/dw/react-safe-json-ld.svg?style=flat-square)](https://www.npmjs.com/package/react-safe-json-ld)
 
 React component that renders a `<script type="application/ld+json">` tag with your passed [JSON-LD](https://json-ld.org/) data, in a way that prevents [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) attacks.
 
@@ -9,13 +9,13 @@ This differs from other implementations in that it escapes dangerous characters 
 ## Installation
 
 ```bash
-npm install --save react-json-ld
+npm install --save react-safe-json-ld
 ```
 
 ## Usage
 
 ```tsx
-import {JsonLD, type JsonLDData} from 'react-json-ld'
+import {JsonLD, type JsonLDData} from 'react-safe-json-ld'
 
 const structuredData: JsonLDData = {
   '@context': 'https://schema.org/',
@@ -35,7 +35,7 @@ function MyComponent() {
 ## Alternative usage
 
 ```tsx
-import {encodeJsonLD, type JsonLDData} from 'react-json-ld'
+import {encodeJsonLD, type JsonLDData} from 'react-safe-json-ld'
 
 const structuredData: JsonLDData = {
   '@context': 'https://schema.org/',
