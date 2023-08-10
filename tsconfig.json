@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "noEmit": true,
     "paths": {
-      "react-jsonld": ["./src"]
+      "react-json-ld": ["./src"]
     }
   }
 }

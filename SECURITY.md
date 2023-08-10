@@ -11,6 +11,6 @@
 
 ## Reporting a Vulnerability
 
-Please use the [Report a vulnerability](https://github.com/rexxars/react-jsonld/security/advisories/new) feature in GitHub to report any security issues.
+Please use the [Report a vulnerability](https://github.com/rexxars/react-json-ld/security/advisories/new) feature in GitHub to report any security issues.
 
 You can normally expect an update within a week on a reported vulnerability, but as this is an open-source project with a single maintainer, I cannot _guarantee_ this response time. For the same reason, I am unable to provide any financial reward for the reports.
