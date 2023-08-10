@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
