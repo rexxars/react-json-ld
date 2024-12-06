@@ -1,13 +1,8 @@
+import {renderToStaticMarkup} from 'react-dom/server'
 import {expect, test} from 'vitest'
-import renderer from 'react-test-renderer'
+import {render} from '@testing-library/react'
 import {JsonLD} from '../src/index.js'
-import {
-  getDataFromInnerHTMLProp,
-  getInnerHTMLProp,
-  toHtml,
-  toJson,
-  validateHtmlSnippet,
-} from './helpers/testHelpers.js'
+import {validateHtmlSnippet} from './helpers/validateHtmlSnippet.js'
 
 test('renders safe data as-is', async () => {
   const input = {
@@ -16,17 +11,14 @@ test('renders safe data as-is', async () => {
     name: 'Espen Hovlandsdal',
   }
 
-  const element = <JsonLD data={input} />
-  const component = renderer.create(element)
-  const output = getDataFromInnerHTMLProp(component)
-  expect(output).toStrictEqual(input)
+  const element = <JsonLD data={input} data-testid="script" />
+  const script = render(element).getByTestId('script')
+  expect(script).toHaveTextContent(JSON.stringify(input))
 
-  const props = toJson(component).props
-  expect(props.type).toBe('application/ld+json')
-  expect(props).not.toHaveProperty('id')
-  expect(props).not.toHaveProperty('data-testid')
+  expect(script).toHaveProperty('type', 'application/ld+json')
+  expect(script).toHaveProperty('id', '')
 
-  const html = toHtml(element)
+  const html = renderToStaticMarkup(element)
   expect(await validateHtmlSnippet(html)).toBe(true)
 })
 
@@ -37,16 +29,20 @@ test('escapes unsafe data', async () => {
     name: '</script><script>alert("xss")</script>',
   }
 
-  const element = <JsonLD data={input} />
-  const component = renderer.create(element)
-  const output = getDataFromInnerHTMLProp(component)
-  const script = getInnerHTMLProp(component)
-  expect(output).toStrictEqual(input)
-  expect(script).toBe(
-    `{"@context":"https://schema.org/","@type":"Person","name":"\\u003c/script\\u003e\\u003cscript\\u003ealert(\\"xss\\")\\u003c/script\\u003e"}`,
-  )
+  const element = <JsonLD data={input} data-testid="unsafe-script" />
+  const script = render(element).getByTestId('unsafe-script')
 
-  const html = toHtml(element)
+  expect(JSON.parse(script.innerText)).toStrictEqual(input)
+  expect(script).toMatchInlineSnapshot(`
+    <script
+      data-testid="unsafe-script"
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org/","@type":"Person","name":"\\u003c/script\\u003e\\u003cscript\\u003ealert(\\"xss\\")\\u003c/script\\u003e"}
+    </script>
+  `)
+
+  const html = renderToStaticMarkup(element)
   expect(await validateHtmlSnippet(html)).toBe(true)
 })
 
@@ -57,19 +53,23 @@ test('can pass regular script attributes as props', async () => {
     name: 'Dmitry Kalinin',
   }
 
-  const element = <JsonLD data={input} data-testid="testable!" id="my-script" />
-  const component = renderer.create(element)
-  expect(toJson(component).props).toMatchInlineSnapshot(`
-    {
-      "dangerouslySetInnerHTML": {
-        "__html": "{\\"@context\\":\\"https://schema.org/\\",\\"@type\\":\\"Person\\",\\"name\\":\\"Dmitry Kalinin\\"}",
-      },
-      "data-testid": "testable!",
-      "id": "my-script",
-      "type": "application/ld+json",
-    }
+  const element = <JsonLD data={input} data-testid="testable" id="my-script" />
+  const script = render(element).getByTestId('testable')
+
+  expect(script).toHaveProperty('type', 'application/ld+json')
+  expect(script).toHaveProperty('id', 'my-script')
+
+  expect(JSON.parse(script.innerText)).toStrictEqual(input)
+  expect(script).toMatchInlineSnapshot(`
+    <script
+      data-testid="testable"
+      id="my-script"
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org/","@type":"Person","name":"Dmitry Kalinin"}
+    </script>
   `)
 
-  const html = toHtml(element)
+  const html = renderToStaticMarkup(element)
   expect(await validateHtmlSnippet(html)).toBe(true)
 })
